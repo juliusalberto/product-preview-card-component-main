@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+
+$colors: (
+    cream-bg: #F2EAE2,
+    white: #FFF,
+    deep-green: #3D8168,
+    grey-text: #6C7289,
+    dark-gunmetal: #1C232B,
+    deep-aquamarine: #1A4032
+);
+$color-cream-bg: #F2EAE2;
+$color-white: #FFF;
+$color-deep-green: #3D8168;
+$color-grey-text: #6C7289;
+$color-dark-gunmetal: #1C232B;
+
+$fonts: (
+    montserrat: 'Montserrat',
+    fraunces: 'Fraunces'
+);
+
+@mixin flexbox($direction: row, $justify: flex-start, $align: stretch) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin font-style($family, $size, $weight, $line-height: normal) {
+    font-family: map-get($fonts, $family);
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    @include flexbox(column, center, center);
+    height: 100vh;
+    background-color: $color-cream-bg;
+    padding: 28px 16px;
+}
+
+.card {
+    width: 343px;
+    height: 611px;
+    @include flexbox(column);
+    background-color: map-get($map: $colors, $key: white);
+    border-radius: 10px;
+
+    .img-container {
+        height: 240px;
+        overflow: hidden;
+        border-radius: 10px 10px 0px 0px;
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .text-content {
+        color: map-get($map: $colors, $key: grey-text);
+        padding: 24px;
+        @include flexbox(column, flex-start, stretch);
+        
+        .product-type {
+            /* Overline */
+            @include font-style(montserrat, 12px, 500);
+            letter-spacing: 5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            /* Display */
+            @include font-style(fraunces, 32px, 700, 32px);
+            color: map-get($map: $colors, $key: dark-gunmetal);
+            margin-bottom: 16px;
+        }
+
+        p {
+            /* Body */
+            @include font-style(montserrat, 14px, 500, 23px);
+            margin-bottom: 24px;
+        }
+
+        .price-row {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 19px;
+            align-items: center;
+
+            .price {
+                @include font-style(fraunces, 32px, 700, 32px);
+                color: map-get($map: $colors, $key: deep-green);
+            }
+
+            .original-price {
+                @include font-style(montserrat, 13px, 500, 23px);
+                text-decoration: line-through;
+            }
+        }
+
+        button {
+            @include flexbox(row, center, center );
+            border: none;
+            align-self: stretch;
+            height: 48px;
+            gap: 8px;
+            border-radius: 8px;
+            background-color: map-get($colors, deep-green);
+            color: map-get($colors, white);
+            @include font-style(montserrat, 14px, 700);
+            transform: all 0.3 ease;
+
+            &:hover {
+                background-color: map-get($map: $colors, $key: deep-aquamarine);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        flex-direction: row;
+        width: 600px;
+        height: 450px;
+        
+
+        .img-container {
+            flex-shrink: 0;
+            width: 300px;
+            height: 100%;
+            border-radius: 10px 0 0 10px;
+      
+            img {
+              object-fit: cover;
+              width: 300px;
+              height: 100%;
+            }
+        }
+        
+        .text-content {
+            padding: 32px;
+            .product-type {
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                margin-bottom: 24px;
+            }
+
+            p {
+                margin-bottom: 29px;
+            }
+
+            .price-row {
+                margin-bottom: 30px;
+            }
+        }
+
+    }
+}
